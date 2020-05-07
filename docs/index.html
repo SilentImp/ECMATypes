@@ -1,0 +1,317 @@
+<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"><title>Data Types | ECMAScript</title><link href="css/styles.css" rel="stylesheet"><script data-main="js/presentation" src="js/requirejs/require.js"></script></head><body><form action="/select/slide" method="post" class="go-to-page"><fieldset><input type="text" maxlength="3" value="" placeholder="1"></fieldset></form><section class="progress"><div class="value"></div></section><section id="slides" class="dark"><article class="title-slide"><h1>ECMA</h1></article><article class="center qrcode wtf"><div class="wrapper"><div class="half"><h2>ECMAScript® 2021</h2></div><div class="half"><img src="images/ecma.svg" alt="QRCODE with link ecma spec"></div><p> <a href="https://tc39.es/ecma262/" data-click>https://tc39.es/ecma262/</a></p></div></article><article class="center title-slide-4"><div class="wrapper"><h1 class="title">Data Types</h1></div></article><article class="center types-list"><ol class="half"><li>Undefined</li><li>Null</li><li>Object</li><li>Boolean</li></ol><ol start="5" class="half"><li>String</li><li>Number</li><li>Symbol</li><li class="green">BigInt</li></ol></article><article class="center title-slide-2"><div class="wrapper"><h1 class="title">Undefined</h1></div></article><article class="center code-6"><div class="wrapper"><pre><code>[undefined]</code></pre></div></article><article class="center code-1"><div class="wrapper"><pre><code>// x defined
+var x;
+if (x === undefined) {}
+if (x === void 0) {}
+ 
+// x not defined
+if (typeof x === "undefined") {}</code></pre></div></article><article class="center title-slide-2"><div class="wrapper"><h1 class="title">NULL</h1></div></article><article class="center code-6"><div class="wrapper"><pre><code>[null]</code></pre></div></article><article class="center title-slide-2"><div class="wrapper"><h1 class="title">Object</h1></div></article><article class="center types-wrapper"><div class="wrapper"><ol class="half"><li>Constructor</li><li>Prototype</li><li>Ordinary </li></ol><ol start="4" class="half"><li>Exotic</li><li>Standard</li><li>Built-in</li></ol></div></article><article class="center types-wrapper"><div class="wrapper"><ol class="half"><li>Boolean</li><li>Number</li><li>String</li></ol><ol start="4" class="half"><li>BigInt</li><li>Symbol</li></ol></div></article><article class="center code-1"><div class="wrapper"><pre><code>let container;
+ 
+container = {};
+container = Object(value);
+container = new Object(value);
+container = Object.create(prototype, props);</code></pre></div></article><article class="illustration illustration--world"></article><article class="center title-slide-2"><div class="wrapper"><h1 class="title">Boolean</h1></div></article><article class="center code-6"><div class="wrapper"><pre><code>[true; false]</code></pre></div></article><article class="center code-3"><div class="wrapper"><pre><code>let flag;
+ 
+flag = false;
+typeof flag; // boolean
+flag = Boolean(false);
+typeof flag; // boolean
+ 
+flag = new Boolean(flag);
+typeof flag; // object
+ 
+flag = flag.valueOf();
+typeof flag; // boolean</code></pre></div></article><article class="center code-1"><div class="wrapper"><pre><code>flag = new Boolean(); // false
+flag = new Boolean(document.all); // false</code></pre></div></article><article class="center code-1"><div class="wrapper"><pre><code>flag = new Boolean(false);
+if (flag) {
+  // ???
+}</code></pre></div></article><article class="center code-1"><div class="wrapper"><pre><code>flag = new Boolean(false);
+typeof flag; // object
+if (flag) {
+  // будет выполнено    
+}</code></pre></div></article><article class="center title-slide-2"><div class="wrapper"><h1 class="title">String</h1></div></article><article class="center code-7"><div class="wrapper"><pre><code>[0; FFFF₁₆]{0, 2⁵³-1}</code></pre></div></article><article class="center code-3"><div class="wrapper"><pre><code>let container;
+ 
+container = "Content";
+typeof container; // string
+ 
+container = String("Content");
+typeof container; // string
+ 
+container = new String(container);
+typeof container; // object
+ 
+container = container.valueOf();
+typeof container; // string</code></pre></div></article><article class="center code-1"><div class="wrapper"><pre><code>container = "Content";
+typeof container; // string
+container.charAt(2); // n
+typeof container; // string
+container[2]; // n</code></pre></div></article><article class="center code-1"><div class="wrapper"><pre><code>container = "Line 1" + 
+            "Line 2" +
+            "Line 3";
+ 
+container = "Line 1 \ 
+             Line 2 \
+             Line 3";</code></pre></div></article><article class="center strings-wrapper"><div class="wrapper"><h1 class="title">String.&rarr;</h1><ol class="half"><li>startsWith("Substring")</li><li>endsWith("Substring")</li><li>includes("Substring")</li><li>repeat(count)</li></ol><ol start="7" class="half"><li>raw(callSite, ...substitutions)</li><li>fromCodePoint(...codePoint)</li><li>codePointAt(pos)</li><li>normalize(form)</li></ol></div></article><article class="center title-slide-2"><div class="wrapper"><h1 class="title">Template literal</h1></div></article><article class="center code-6"><div class="wrapper"><pre><code class="javascript">`Literal`</code></pre></div></article><article class="center code-6"><div class="wrapper"><pre><code class="javascript">`Line 1
+ Line 2`</code></pre></div></article><article class="center code-0"><div class="wrapper"><pre><code class="javascript">let name = "Valera"
+  , result;
+result = `And where is my ${name}?`
+result; // And where is my Valera?</code></pre></div></article><article class="center code-2"><div class="wrapper"><pre><code class="javascript">let  result
+  , price = 234
+  , tax = price * 0.05;
+result = `Item cost € ${(price + tax).toFixed(2)}`
+result; // Item cost € 245.70</code></pre></div></article><article class="center code-1"><div class="wrapper"><pre><code class="javascript">currency`Item cost 
+         ${price + tax}:c(EUR,nl), 
+         that much.`;
+// Item cost € 245,70, that much.
+ 
+currency`Item cost 
+         ${price + tax}:c(JPY,ja-JP), 
+         that much.`;
+// Item cost ￥246, that much.</code></pre></div></article><article class="center code-2"><div class="wrapper"><pre><code class="javascript">function currency(strings, ...values) {
+ // string = ["Item cost ", ":c(EUR,nl), that much."]
+ // values = [245.7]
+ // …
+}</code></pre></div></article><article class="center code-1"><div class="wrapper"><pre><code class="javascript">// …
+const regExp = /^:c(\((.+),(.+)\))?/;
+let strings_set = [...strings]
+  , values_set = [...values];
+// …</code></pre></div></article><article class="center code-1"><div class="wrapper"><pre><code class="javascript">// …
+for (let key in values_set) {
+    const index = +key+1
+        , string = strings_set[index]
+        , match = regExp.exec(string);
+    // …
+}
+// …</code></pre></div></article><article class="center code-8"><div class="wrapper"><pre><code class="javascript">// …
+if (match === null) continue;
+// …</code></pre></div></article><article class="center code-2"><div class="wrapper"><pre><code class="javascript">// …
+// [":c(EUR,nl)", "(EUR,nl)", "EUR", "nl"]
+const [ , , currency, locale] = match;
+strings_set[index] = strings_set[index]
+                      .replace(regExp, "");
+values_set[key] = values_set[key]
+                      .toLocaleString(locale, {
+                          style: 'currency'
+                        , currency: currency });
+// …</code></pre></div></article><article class="center code-8"><div class="wrapper"><pre><code class="javascript">// …
+return String.raw({
+  raw: strings_set
+ }, ...values_set);</code></pre></div></article><article class="center qrcode literals"><div class="wrapper"><div class="half"><h2>Example of string linterals usage</h2></div><div class="half"><img src="images/literals.svg" alt="QRCODE with link to example"></div><p> <a href="https://jsfiddle.net/silentimp/2dv5ua79/" data-click>https://jsfiddle.net/silentimp/2dv5ua79/</a></p></div></article><article class="center title-slide-2"><div class="wrapper"><h1 class="title">Number</h1></div></article><article class="center qrcode numbers"><div class="wrapper"><div class="half"><h2>IEEE 754-2008</h2></div><div class="half"><img src="images/IEEE-754-2008.svg" alt="QRCODE cо ссылкой на IEEE 754-2008"></div><p> <a href="http://ieeexplore.ieee.org/document/4610935/" data-click>http://ieeexplore.ieee.org/document/4610935/</a></p></div></article><article class="center strings-wrapper"><div class="wrapper"><h1 class="title">Number.&rarr;</h1><ol class="half"><li>isFinite(number)</li><li>isNaN(number)</li><li>EPSILON</li><li>toLocaleString(locales, options)</li></ol><ol start="4" class="half"><li>isSafeInteger(number)</li><li>MIN_SAFE_INTEGER</li><li>MAX_SAFE_INTEGER</li></ol></div></article><article class="center code-8"><div class="wrapper"><pre><code>[-(2⁵³ - 1); +(2⁵³ - 1)]
++0
+-0
++Infinity
+−Infinity
+NaN</code></pre></div></article><article class="center code-8"><div class="wrapper"><pre><code>-1/0; // -Infinity
+Infinity/Infinity; // NaN
+-1/Infinity; // -0
+Math.round(-0.1); // -0</code></pre></div></article><article class="center code-8"><div class="wrapper"><pre><code>NaN === NaN; // false
++0 === -0; // true</code></pre></div></article><article class="center code-3"><div class="wrapper"><pre><code>let container;
+ 
+container = 123.12;
+typeof container; // number
+ 
+container = Number(123.12);
+typeof container; // number
+ 
+container = new Number(container);
+typeof container; // object
+ 
+container = container.valueOf();
+typeof container; // number</code></pre></div></article><article class="center code-8"><div class="wrapper"><pre><code>23.51 // decimal
+2351e-2 // scientific, 23.51
+0x10 // hexadecimal, 16
+0b10 // binary, 2
+0o10 // octal, 8</code></pre></div></article><article class="center code-8"><div class="wrapper"><pre><code>let x = 10;
+x.toString(16); // a
+x.toString(8); // 12
+x.toString(6); // 14
+x.toString(2); // 1010
+x.toExponential(1); // 1.0e+1</code></pre></div></article><article class="center code-8"><div class="wrapper"><pre><code>0.2 + 0.1 !== 0.3 
+// 0.30000000000000004
+0.2.toFixed(20) 
+// 0.20000000000000001110
+0.1.toString(2) 
+// 0.000110011001100[1100]</code></pre></div></article><article class="center code-8"><div class="wrapper"><pre><code>(
+  Math.abs(
+        (0.2 + 0.1) - 0.3 
+  ) < Number.EPSILON
+); // true</code></pre></div></article><article class="center code-8"><div class="wrapper"><pre><code class="javascript">Number.isNaN('???') //false
+isNaN('???') //true </code></pre></div></article><article class="center code-1"><div class="wrapper"><pre><code class="javascript">12.34.toPrecision();  // 12.34
+12.34.toString();     // 12.34
+12.34.toPrecision(5); // 12.340
+12.34.toPrecision(4); // 12.34
+12.34.toPrecision(3); // 12.3
+12.34.toPrecision(2); // 12
+12.34.toPrecision(1); // 1e+1</code></pre></div></article><article class="center code-1"><div class="wrapper"><pre><code class="javascript">0.002345.toPrecision(5); // 0.0023450
+0.002345.toPrecision(4); // 0.002345
+0.002345.toPrecision(3); // 0.00234
+0.002345.toPrecision(2); // 0.0023
+0.002345.toPrecision(1); // 0.002</code></pre></div></article><article class="center code-1"><div class="wrapper"><pre><code class="javascript">0.002385.toFixed(5); // 0.00238
+0.002386.toFixed(5); // 0.00239
+0.002385.toFixed(4); // 0.0024
+0.002385.toFixed(3); // 0.002
+0.002385.toFixed(2); // 0.00
+0.002385.toFixed(1); // 0.0
+0.002385.toFixed(0); // 0</code></pre></div></article><article class="center code-8"><div class="wrapper"><pre><code class="javascript">10..toFixed(5); // 10.00000</code></pre></div></article><article class="center code-1"><div class="wrapper"><pre><code class="javascript">// .toLocaleString([locales [, options]])
+10000000..toLocaleString(); // 10,000,000
+10000000..toLocaleString('RU'); // 10 000 000
+10000000..toLocaleString('DE'); // 10.000.000</code></pre></div></article><article class="center code-1"><div class="wrapper"><pre><code class="javascript">// .toLocaleString([locales [, options]])
+10000000..toLocaleString(); 
+// 10,000,000
+10000000..toLocaleString('RU'); 
+// 10 000 000
+10000000..toLocaleString('DE'); 
+// 10.000.000</code></pre></div></article><article class="center code-1"><div class="wrapper"><pre><code class="javascript">10000000..toLocaleString('en-US', {
+  style: "currency",
+  currency: "USD"   
+}); // $10,000,000.00</code></pre></div></article><article class="center code-1"><div class="wrapper"><pre><code class="javascript">10000000..toLocaleString('RU', {
+  style: "currency",
+  currency: "RUB"   
+}); // 10 000 000,00 ₽</code></pre></div></article><article class="center code-1"><div class="wrapper"><pre><code class="javascript">10000000..toLocaleString('DE', {
+  style: "currency",
+  currency: "EUR"   
+}); // 10.000.000,00 €</code></pre></div></article><article class="center title-slide-2"><div class="wrapper"><h1 class="title">symbol</h1></div></article><article class="center code-1"><div class="wrapper"><pre><code class="javascript">let key_name;
+ 
+// Unique symbol
+key_name = Symbol(); 
+key_name = Symbol("Wide description"); 
+ 
+// Character to be entered in the register
+key_name = Symbol.for("Wide description"); 
+this[key_name] = "Valera";</code></pre></div></article><article class="center code-1"><div class="wrapper"><pre><code class="javascript">let key_1, key_2;
+ 
+key_1 = Symbol("Wide description");
+key_2 = Symbol("Wide description"); 
+(key_1 === key_2) // false
+ 
+key_1 = Symbol.for("Wide description");
+key_2 = Symbol.for("Wide description"); 
+(key_1 === key_2) // true</code></pre></div></article><article class="center code-2"><div class="wrapper"><pre><code class="javascript">key_name = new Symbol(); // TypeError
+key_name = Symbol();
+typeof key_name; // "symbol" 
+key_name = Object(key_name);
+typeof key_name; // "object" 
+key_name = key_name[Symbol.toPrimitive]('symbol');
+typeof key_name; // "symbol" </code></pre></div></article><article class="center code-8"><div class="wrapper"><pre><code class="javascript">this[key_name] = &quot;Valera&quot;;</code></pre></div></article><article class="center code-1"><div class="wrapper"><pre><code class="javascript">let obj = {"a": 123}
+  , key = Symbol.for('Wide description');
+obj[key] = "Valera";
+Object.getOwnPropertySymbols(obj);
+// [Symbol(Wide description)]</code></pre></div></article>
+<article class="center code-1"><div class="wrapper"><pre><code>for (let x of obj) {} // as usual
+for (let x in obj) {} // ignoring symbols</code></pre></div></article>
+
+<article class="center title-slide-2"><div class="wrapper"><h1 class="title">typeof</h1></div></article><article class="center typeof-table"><div class="wrapper"><ul class="quarter"><li>Undefined</li><li>Null<span> баг</span></li><li>Boolean</li><li>String</li></ul><ul class="quarter"><li>"undefined"</li><li>"object"</li><li>"boolean"</li><li>"string"</li></ul><ul class="quarter"><li>Number </li><li>Object</li><li>Object<span> callable</span></li><li>Symbol</li><li>BigInt </li></ul><ul class="quarter"><li>"number"</li><li>"object"</li><li>"function"</li><li>"symbol"</li><li>"bigint"</li></ul></div></article><article class="center code-8"><div class="wrapper"><pre><code class="javascript">Object.prototype
+  .toString
+      .call((new Date())) 
+      // [Object Date]
+          .slice(8, -1)
+          // Date</code></pre></div></article><article class="center title-slide-2"><div class="wrapper"><h1 class="title">Coercion</h1></div></article><article class="center cast"><div class="wrapper"><h1 class="title">&rarr; ToPrimitive(input, hint)</h1><table><tr><td>Undefined</td><td> <b>input</b></td></tr><tr><td>Null</td><td> <b>input</b></td></tr><tr><td>Number</td><td> <b>input </b></td></tr><tr><td>Boolean</td><td> <b>input </b></td></tr><tr><td>String</td><td> <b>input</b></td></tr><tr><td>Symbol</td><td> <b>input</b></td></tr><tr><td>BigInt</td><td> <b>input</b></td></tr><tr><td>Object</td><td> <b>tricky bit</b></td></tr></table></div></article><article class="center cast"><div class="wrapper"><h1 class="title">&rarr; ToPrimitive(input, hint)</h1><ol><li>hint can be [default, string, number]</li><li>if input is exotic object check if it has @@toPrimitive</li><li>if it has and value is a callable object — call and return result or TypeError</li></ol></div></article><article class="center code-0"><div class="wrapper"><pre><code class="javascript">const date = new Date()
+date[Symbol.toPrimitive]('number')
+// 1588847933493
+date[Symbol.toPrimitive]('string')
+// "Thu May 07 2020 12:38:53 GMT+0200 
+//  (Central European Summer Time)"</code></pre></div></article><article class="center cast"><div class="wrapper"><h1 class="title">&rarr; ToPrimitive(input, hint)</h1><ol><li start="4">if it doesn't or input — ordinary object, continue</li><li>if hint == "default", set it to "number"</li><li>call OrdinaryToPrimitive(input, hint)</li></ol></div></article><article class="center cast"><div class="wrapper"><h1 class="title">&rarr; ToPrimitive(input, hint)</h1><ol><li>if hint — string call toString, valueOf</li><li>if hint — number call valueOf, toString</li><li>if method is present and callable — call it and return result or TypeError</li></ol></div></article><article class="center cast"><div class="wrapper"><h1 class="title">&rarr; toBoolean</h1><table><tr><td>Undefined</td><td> <b>false</b></td></tr><tr><td>Null</td><td> <b>false</b></td></tr><tr><td>Number</td><td> <b>false </b>for [+0; -0; NaN] or  <b>true </b></td></tr><tr><td>String</td><td> <b>false </b>for [""] or  <b>true</b></td></tr><tr><td>Symbol</td><td> <b>true</b></td></tr><tr><td>BigInt</td><td> <b>false</b> for [0n] or<b> true</b></td></tr><tr><td>Object</td><td> <b>true </b>if not document.all</td></tr></table></div></article><article class="center code-1"><div class="wrapper"><pre><code class="javascript">(value === 'true');  // true
+typeof (value === 'true');  // boolean
+!!+"1"; // true
+typeof !!+"1"; // boolean</code></pre></div></article><article class="center cast"><div class="wrapper"><h1 class="title">&rarr; toNumber</h1><table><tr><td>Undefined</td><td> <b>NaN</b></td></tr><tr><td>Null</td><td> <b>+0</b></td></tr><tr><td>Boolean</td><td> <b>1 </b>если true, <b>0 </b>если false</td></tr><tr><td>String</td><td> <ol> <li>Trying ot use StringNumericLiteral UTF-16</li><li>Otherwise return NaN</li></ol></td></tr><tr><td>Symbol</td><td> <b>TypeError</b></td></tr><tr><td>BigInt</td><td> <b>TypeError</b></td></tr><tr><td>Object</td><td> <ol> <li>ToPrimitive(input, number)</li><li>ToNumber(input)</li></ol></td></tr></table></div></article><article class="center code-8"><div class="wrapper"><pre><code class="javascript">parseInt(value, 10);
+parseFloat(value);
++value;
+Number(value);</code></pre></div></article><article class="center cast"><div class="wrapper"><h1 class="title">&rarr; toString</h1><table><tr><td>Undefined</td><td> <b>"undefined"</b></td></tr><tr><td>Null</td><td> <b>"null"</b></td></tr><tr><td>Boolean</td><td> <b>"true" </b> if true, <b>"false"</b> if false</td></tr><tr><td>Symbol</td><td> <b>TypeError</b></td></tr><tr><td>Object</td><td> <ol> <li>ToPrimitive(input, string)</li><li>ToString(input)</li></ol></td></tr></table></div></article><article class="center cast"><div class="wrapper"><h1 class="title">&rarr; toString</h1><table><tr><td>Number</td><td> <b>"NaN"</b> if NaN<br><b>"0"</b> if +0 или -0<br><b>"Infinity"</b> if +∞<br><b>"-" + toString(arg)</b> if value less then 0<br><b>number N</b> convert to UTF-16</td></tr></table></div></article><article class="center code-8"><div class="wrapper"><pre><code class="javascript">value.toString(); 
+// don't work with null
+// don't work with undefined
+"" + value;
+String(value);</code></pre></div></article><article class="center cast"><div class="wrapper"><h1 class="title">&rarr; toObject</h1><table><tr><td>Undefined</td><td> <b>TypeError</b></td></tr><tr><td>Null</td><td> <b>TypeError</b></td></tr><tr><td>Boolean</td><td>New object <b>Boolean</b></td></tr><tr><td>Number</td><td>New object <b>Number</b></td></tr><tr><td>String</td><td>New object <b>String</b></td></tr><tr><td>BigInt</td><td>New object <b>BigInt</b></td></tr><tr><td>Symbol</td><td>New object <b>Symbol</b></td></tr></table></div></article><article class="center code-8"><div class="wrapper"><pre><code class="javascript">Object("3"); 
+// String {"3"}
+Object(3); 
+// Number {10}</code></pre></div></article><article class="center cast"><div class="wrapper"><h1 class="title">&rarr; toBigInt</h1><p class="first">Call ToPrimitive(argument, hint Number), or</p><table><tr><td>Undefined</td><td> <b>TypeError</b></td></tr><tr><td>Null</td><td> <b>TypeError</b></td></tr><tr><td>Boolean</td><td>  <b>1n </b> if true, <b>0n</b> if false</td></tr><tr><td>Number</td><td> <b>TypeError</b></td></tr><tr><td>Symbol</td><td> <b>TypeError</b></td></tr><tr><td>String</td><td> <ol> <li>Trying ot use StringNumericLiteral UTF-16, but no <b>Infinity</b>, decimal point or exponents</li><li>Otherwise its <b>NaN</b>, throw <b>TypeError</b></li></ol></td></tr></table></div></article><article class="center code-8"><div class="wrapper"><pre><code class="javascript">BigInt("23");
+// 23n
+BigInt(3);
+// 3n
+// no TypeError because 
+// of ToPrimitive (.valueOf())</code></pre></div></article><article class="center qrcode wtf"><div class="wrapper"><div class="half"><h2>What the f*ck JavaScript?</h2></div><div class="half"><img src="images/wtf.svg" alt="QRCODE with link to the presentation"></div><p> <a href="https://github.com/denysdovhan/wtfjs" data-click>https://github.com/denysdovhan/wtfjs</a></p></div></article><article class="center title-slide-4"><div class="wrapper"><h1 class="title">Type safety</h1></div></article><article class="illustration illustration--challenge"></article><article class="illustration illustration--flow"></article><article class="center code-0"><div class="wrapper"><pre><code class="javascript">// @flow
+function concat(a: string, b: string) {
+    return a + b;
+}</code></pre></div></article><article class="center qrcode var-6"><div class="wrapper"><div class="half"><h2>Flow</h2></div><div class="half"><img src="images/flow-code.svg" alt="QRCODE with link to flow"></div><p><a href="https://flow.org/" data-click>https://flow.org/</a></p></div></article><article class="illustration illustration--typescript"></article><article class="center qrcode var-6"><div class="wrapper"><div class="half"><h2>Typescript</h2></div><div class="half"><img src="images/typescript.svg" alt="QRCODE with link to flow"></div><p><a href="https://www.typescriptlang.org/" data-click>https://www.typescriptlang.org/</a></p></div></article><article class="center code-0"><div class="wrapper"><pre><code class="javascript">function concat(a: string, b: string) {
+    return a + b;
+}
+</code></pre></div></article><article class="think think--real cloud center"><h1> <p class="wrapper">Let's make JavaScript a real language!</p></h1></article><article class="think think--java cloud center"><h1> <p class="wrapper">JAVA</p></h1></article><article class="center code-8"><div class="wrapper"><pre><code class="javascript">npx -p typescript tsc 
+    --allowJs 
+    --checkJs 
+    --noEmit 
+    src/**/**.js
+</code></pre></div></article><article class="screen screen--res"></article><article class="center qrcode var-6"><div class="wrapper"><div class="half"><h2>JSDoc</h2></div><div class="half"><img src="images/jsdoc.svg" alt="QRCODE with link to jsdoc"></div><p><a href="http://usejsdoc.org/" data-click>http://usejsdoc.org/</a></p></div></article><article class="center code-2"><div class="wrapper"><pre><code class="javascript">/**
+ * Cities - Class to work with unique cities
+ * @class
+ * @namespace
+ */
+class Cities {
+    /**
+     * @type {array}
+     * @static
+     */
+    static collector = [];
+}
+</code></pre></div></article><article class="center code-2"><div class="wrapper"><pre><code class="javascript">/**
+ * getCity - Get city by index
+ * @throws {Error} if index not found
+ * @param {number} index city index
+ * @return {string} city name
+ */
+getCity(index) {
+    // …
+}
+</code></pre></div></article><article class="think think--types cloud center"><h1> <p class="wrapper">And <br>what<br>does
+it do?</p></h1><div class="subtitle"><p>— Nothing.</p></div></article><article class="center code-8"><div class="wrapper"><pre><code class="bash">npm i -D jsdoc
+</code></pre></div></article><article class="center code-0"><div class="wrapper"><pre><code class="bash">// package.json
+"scripts": {
+    "doc": "jsdoc src/*.js -d docs"
+}</code></pre></div></article><article class="center code-8"><div class="wrapper"><pre><code class="bash">npm run doc</code></pre></div></article><article class="screen screen--jsdoc"></article><article class="center code-8"><div class="wrapper"><pre><code class="bash">npm i -D jsdoc-babel</code></pre></div></article><article class="center code-0"><div class="wrapper"><pre><code class="json">// conf.json
+{
+    "plugins": 
+        ["node_modules/jsdoc-babel"]
+}</code></pre></div></article><article class="screen screen--documentation"></article><article class="center qrcode var-5"><div class="wrapper"><div class="half"><h2>Documentation.js</h2></div><div class="half"><img src="images/documentation.svg" alt="QRCODE with link to jsdoc"></div><p><a href="http://documentation.js.org/" data-click>http://documentation.js.org/</a></p></div></article><article class="center code-8"><div class="wrapper"><pre><code class="bash">npm i -D documentation</code></pre></div></article><article class="center code-0"><div class="wrapper"><pre><code class="json">// package.json
+"scripts": {
+    "doc": "documentation 
+        build src/*.js 
+        -f html -o docs"
+}</code></pre></div></article><article class="center code-8"><div class="wrapper"><pre><code class="bash">npm run doc</code></pre></div></article><article class="screen screen--documentation-build"></article><article class="center code-0"><div class="wrapper"><pre><code class="md">// README.md
+# Cities
+Cool Library that …
+
+# API</code></pre></div></article><article class="center code-0"><div class="wrapper"><pre><code class="json">// package.json
+"scripts": {
+    "readme": "documentation 
+        readme src/*.js 
+        --section=API"
+}</code></pre></div></article><article class="center code-7"><div class="wrapper"><pre><code class="bash">npm run readme</code></pre></div></article><article class="screen screen--documentation-readme"></article><article class="screen screen--documentation-issues"></article><article class="think think--real cloud center"><h1> <p class="wrapper">Where is my type linting, dude?</p></h1><div class="subtitle">   <p>— TS can read JSDoc.</p></div></article><article class="illustration illustration--vsc"></article><article class="screen screen--vsc-settings"></article><article class="screen screen--vsc-property"></article><article class="screen screen--vsc-check"></article><article class="center qrcode var-5"><div class="wrapper"><div class="half"><h2>Type Safe JavaScript with JSDoc</h2></div><div class="half"><img src="images/vs-jsdoc.svg" alt="QRCODE with link to article about configuring jsdoc type checks"></div><p><a href="https://medium.com/@trukrs/type-safe-javascript-with-jsdoc-7a2a63209b76" data-click>https://goo.gl/sBHmmH</a></p></div></article><article class="center code-7"><div class="wrapper"><pre><code class="bash">npm i -D typescript
+</code></pre></div></article><article class="center code-3"><div class="wrapper"><pre><code class="json">// tsconfig.json
+{
+    "compilerOptions": {
+        "target": "ESNext",
+        "noEmit": true,
+        "allowJs": true,
+        "checkJs": true,
+    },
+    "include": [
+        "src/**/*.js"
+    ]
+}
+</code></pre></div></article><article class="center code-7"><div class="wrapper"><pre><code class="json">// package.json
+"scripts": {
+    "lint": "tsc"
+}</code></pre></div></article><article class="center code-0"><div class="wrapper"><pre><code class="javascript">/**
+ * Add new city
+ * @param {string} word city name
+ */
+add(word) {
+    //…
+}</code></pre></div></article><article class="center code-6"><div class="wrapper"><pre><code class="javascript">citys.add(222);</code></pre></div></article><article class="center code-6"><div class="wrapper"><pre><code class="bash">npm run lint</code></pre></div></article><article class="screen screen--tsc-lint"></article><article class="center code-2"><div class="wrapper"><pre><code class="js">// package.json
+{ // …
+    "scripts": { // …
+        "precommit": "lint-staged"
+    },
+    "lint-staged": { // …
+        "*.{js,jsx}": "tsc --target ESNext 
+            --noEmit --allowJs --checkJs"
+    }
+}
+</code></pre></div></article><article class="screen screen--lint-staged-types"></article><article class="center qrcode var-5"><div class="wrapper"><div class="half"><h2>Repository with example</h2></div><div class="half"><img src="images/linttyperepo.svg" alt="QRCODE with link to example repo"></div><p><a href="https://github.com/SilentImp/lintTypes" data-click>https://github.com/SilentImp/lintTypes</a></p></div></article><article class="contacts center qrcode"><div class="wrapper"><div class="about-speaker half"><p class="name">Anton Nemtsev</p><p class="twitter">@silentimp</p><p class="link">http://silentimp.info/</p><p class="email">anton.nemtsev@werkspot.nl</p><p class="skype">skype: ravencry</p></div><div class="half"><img src="images/git.svg" alt="QRCODE with link to the presentation"></div><p> <a href="https://github.com/SilentImp/ES6Types" data-click>https://github.com/SilentImp/ES6Types</a></p></div></article></section></body></html>

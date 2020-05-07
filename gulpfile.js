@@ -11,7 +11,7 @@ var gulp          = require('gulp')
     , dirs        = {
                       'source': {
                           examples:     './developer/examples'
-                          , example:     './developer/examples/**'
+                          , example:    './developer/examples/**'
                           , coffee:     './developer/coffee/**/*.coffee'
                           , js:         './developer/js/**/*.js'
                           , fonts:      './developer/fonts/**'
@@ -20,12 +20,12 @@ var gulp          = require('gulp')
                           , jade:       './developer/*.jade'
                         }
                       , 'build': {
-                          examples:   './build/examples'
-                          , css:      './build/css/'
-                          , images:   './build/images/'
-                          , js:       './build/js/'
-                          , fonts:    './build/fonts/'
-                          , html:     './build/'
+                          examples:   './docs/examples'
+                          , css:      './docs/css/'
+                          , images:   './docs/images/'
+                          , js:       './docs/js/'
+                          , fonts:    './docs/fonts/'
+                          , html:     './docs/'
                         }
                       };
 
@@ -83,7 +83,7 @@ gulp.task('watch', function () {
 
 gulp.task('deploy', function () {
   console.log('deploying');
-  return gulp.src('build/**')
+  return gulp.src('docs/**')
           .pipe(deploy({
             cacheDir:   'gh-cache',
             remoteUrl:  'git@github.com:SilentImp/ES6Types.git'
