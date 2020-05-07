@@ -1,3 +1,4 @@
-# ESX
+# ECMA Types
 
-Типы JavaScript и некоторые их прелюбопытнейшие особенности
+Some information about the types in JavaScript
+
