@@ -1,0 +1,1379 @@
+extends ./partials/layout.jade
+
+block title
+    title Data Types | ECMAScript
+
+block slides
+
+    article.title-slide
+        h1 ECMA
+
+    article.center.qrcode.wtf
+        .wrapper
+            .half
+                h2 ECMAScript® 2021
+            .half
+                img(src="images/ecma.svg", alt="QRCODE with link ecma spec")
+            p 
+                a(href="https://tc39.es/ecma262/", data-click=true) https://tc39.es/ecma262/
+
+    article.center.title-slide-4
+        .wrapper
+            h1.title Data Types
+
+    article.center.types-list
+            ol.half
+                li Undefined
+                li Null
+                li Object
+                li Boolean
+            ol.half(start="5")
+                li String
+                li Number
+                li Symbol
+                li.green BigInt
+
+    article.center.title-slide-2
+        .wrapper
+            h1.title Undefined
+
+    article.center.code-6
+        .wrapper
+            pre
+                code="[undefined]"
+
+    //- не инициализировано
+
+    article.center.code-1
+        .wrapper
+            pre
+                code
+                    | // x defined
+                    | var x;
+                    | if (x === undefined) {}
+                    | if (x === void 0) {}
+                    | 
+                    | // x not defined
+                    | if (typeof x === "undefined") {}
+
+    article.center.title-slide-2
+        .wrapper
+            h1.title NULL
+
+    //- отсутствие какого либо объекта
+
+    article.center.code-6
+        .wrapper
+            pre
+                code="[null]"
+
+
+    article.center.title-slide-2
+        .wrapper
+            //- коллекция свойств с одним объеком-прототипом, значение которого может быть null
+            h1.title Object
+
+    article.center.types-wrapper
+        .wrapper
+            ol.half
+                //- Объект-функция, который создаёт и инициализирует объекты
+                //- Function object (callable and creatable) that creates and initializes objects
+                li Constructor
+                //- Объект обеспечивающий другим объектам общие свойства и наследование
+                //- Object that provides shared properties for other objects
+                li Prototype
+                //- Object that has the default behaviour for the essential internal methods that must be supported by all objects
+                //- Объект со стандартным поведением основнымх методов, которые поддерживаются всеми объектами
+                li Ordinary 
+            ol.half(start="4")
+                //- Object that does not have the default behaviour for one or more of the essential internal methods 
+                //- Объект с нестандартным поведением основных методов, которые поддерживаются всеми объектами
+                li Exotic
+                //- Object whose semantics are defined by this specification
+                //- Объекты, семантика которых определена спецификацией
+                li Standard
+                //- Object specified and supplied by an ECMAScript implementation
+                //- Объекты, работа которых описана и обеспечивается спецификацией
+                li Built-in
+
+    article.center.types-wrapper
+        .wrapper
+            ol.half
+                li Boolean
+                li Number
+                li String
+            ol.half(start="4")
+                li BigInt
+                li Symbol
+
+    article.center.code-1
+        .wrapper
+            pre
+                code
+                    | let container;
+                    | 
+                    | container = {};
+                    | container = Object(value);
+                    | container = new Object(value);
+                    | container = Object.create(prototype, props);
+
+    article.illustration.illustration--world
+
+    article.center.title-slide-2
+        .wrapper
+            h1.title Boolean
+
+    article.center.code-6
+        .wrapper
+            pre
+                code="[true; false]"
+
+    article.center.code-3
+        .wrapper
+            pre
+                code
+                    | let flag;
+                    | 
+                    | flag = false;
+                    | typeof flag; // boolean
+                    | flag = Boolean(false);
+                    | typeof flag; // boolean
+                    | 
+                    | flag = new Boolean(flag);
+                    | typeof flag; // object
+                    | 
+                    | flag = flag.valueOf();
+                    | typeof flag; // boolean
+
+    article.center.code-1
+        .wrapper
+            pre
+                code
+                    | flag = new Boolean(); // false
+                    | flag = new Boolean(document.all); // false
+
+    article.center.code-1
+        .wrapper
+            pre
+                code
+                    | flag = new Boolean(false);
+                    | if (flag) {
+                    |   // ???
+                    | }
+
+    article.center.code-1
+        .wrapper
+            pre
+                code
+                    | flag = new Boolean(false);
+                    | typeof flag; // object
+                    | if (flag) {
+                    |   // будет выполнено    
+                    | }
+
+
+    article.center.title-slide-2
+        .wrapper
+            h1.title String
+
+    article.center.code-7
+        .wrapper
+            pre
+                code="[0; FFFF₁₆]{0, 2⁵³-1}"
+
+    article.center.code-3
+        .wrapper
+            pre
+                code
+                    | let container;
+                    | 
+                    | container = "Content";
+                    | typeof container; // string
+                    | 
+                    | container = String("Content");
+                    | typeof container; // string
+                    | 
+                    | container = new String(container);
+                    | typeof container; // object
+                    | 
+                    | container = container.valueOf();
+                    | typeof container; // string
+
+    article.center.code-1
+        .wrapper
+            pre
+                code
+                    | container = "Content";
+                    | typeof container; // string
+                    | container.charAt(2); // n
+                    | typeof container; // string
+                    | container[2]; // n
+
+    article.center.code-1
+        .wrapper
+            pre
+                code
+                    | container = "Line 1" + 
+                    |             "Line 2" +
+                    |             "Line 3";
+                    | 
+                    | container = "Line 1 \ 
+                    |              Line 2 \
+                    |              Line 3";
+
+    article.center.strings-wrapper
+        .wrapper
+            h1.title String.&rarr;
+            ol.half
+                li startsWith("Substring")
+                li endsWith("Substring")
+                li includes("Substring")
+                li repeat(count)
+            ol.half(start="7")
+                li raw(callSite, ...substitutions)
+                li fromCodePoint(...codePoint)
+                li codePointAt(pos)
+                li normalize(form)
+
+    article.center.title-slide-2
+        .wrapper
+            h1.title Template literal
+
+    article.center.code-6
+        .wrapper
+            pre
+                code.javascript
+                    | `Literal`
+
+    article.center.code-6
+        .wrapper
+            pre
+                code.javascript
+                    | `Line 1
+                    |  Line 2`
+
+
+    article.center.code-0
+        .wrapper
+            pre
+                code.javascript
+                    | let name = "Valera"
+                    |   , result;
+                    | result = `And where is my ${name}?`
+                    | result; // And where is my Valera?
+
+    article.center.code-2
+        .wrapper
+            pre
+                code.javascript
+                     | let  result
+                     |   , price = 234
+                     |   , tax = price * 0.05;
+                     | result = `Item cost € ${(price + tax).toFixed(2)}`
+                     | result; // Item cost € 245.70
+
+    article.center.code-1
+        .wrapper
+            pre
+                code.javascript
+                     | currency`Item cost 
+                     |          ${price + tax}:c(EUR,nl), 
+                     |          that much.`;
+                     | // Item cost € 245,70, that much.
+                     | 
+                     | currency`Item cost 
+                     |          ${price + tax}:c(JPY,ja-JP), 
+                     |          that much.`;
+                     | // Item cost ￥246, that much.
+
+    article.center.code-2
+        .wrapper
+            pre
+                code.javascript
+                     | function currency(strings, ...values) {
+                     |  // string = ["Item cost ", ":c(EUR,nl), that much."]
+                     |  // values = [245.7]
+                     |  // …
+                     | }
+
+    article.center.code-1
+        .wrapper
+            pre
+                code.javascript
+                    | // …
+                    | const regExp = /^:c(\((.+),(.+)\))?/;
+                    | let strings_set = [...strings]
+                    |   , values_set = [...values];
+                    | // …
+
+    article.center.code-1
+        .wrapper
+            pre
+                code.javascript
+                    | // …
+                    | for (let key in values_set) {
+                    |     const index = +key+1
+                    |         , string = strings_set[index]
+                    |         , match = regExp.exec(string);
+                    |     // …
+                    | }
+                    | // …
+
+    article.center.code-8
+        .wrapper
+            pre
+                code.javascript
+                    | // …
+                    | if (match === null) continue;
+                    | // …
+
+    article.center.code-2
+        .wrapper
+            pre
+                code.javascript
+                    | // …
+                    | // [":c(EUR,nl)", "(EUR,nl)", "EUR", "nl"]
+                    | const [ , , currency, locale] = match;
+                    | strings_set[index] = strings_set[index]
+                    |                       .replace(regExp, "");
+                    | values_set[key] = values_set[key]
+                    |                       .toLocaleString(locale, {
+                    |                           style: 'currency'
+                    |                         , currency: currency });
+                    | // …
+
+    article.center.code-8
+        .wrapper
+            pre
+                code.javascript
+                    | // …
+                    | return String.raw({
+                    |   raw: strings_set
+                    |  }, ...values_set);
+
+    article.center.qrcode.literals
+        .wrapper
+            .half
+                h2 Example of string linterals usage
+            .half
+                img(src="images/literals.svg", alt="QRCODE with link to example")
+            p 
+                a(href="https://jsfiddle.net/silentimp/2dv5ua79/", data-click=true) https://jsfiddle.net/silentimp/2dv5ua79/
+
+
+    //- article.screen.screen--stage-0
+
+    article.center.title-slide-2
+        .wrapper
+            h1.title Number
+
+    article.center.qrcode.numbers
+        .wrapper
+            .half
+                h2 IEEE 754-2008
+            .half
+                img(src="images/IEEE-754-2008.svg", alt="QRCODE cо ссылкой на IEEE 754-2008")
+            p 
+                a(href="http://ieeexplore.ieee.org/document/4610935/", data-click=true) http://ieeexplore.ieee.org/document/4610935/
+
+    article.center.strings-wrapper
+        .wrapper
+            h1.title Number.&rarr;
+            ol.half
+                li isFinite(number)
+                li isNaN(number)
+                li EPSILON
+                li toLocaleString(locales, options)
+            ol.half(start="4")
+                li isSafeInteger(number)
+                li MIN_SAFE_INTEGER
+                li MAX_SAFE_INTEGER
+
+    article.center.code-8
+        .wrapper
+            pre
+                code
+                    | [-(2⁵³ - 1); +(2⁵³ - 1)]
+                    | +0
+                    | -0
+                    | +Infinity
+                    | −Infinity
+                    | NaN
+    
+
+    article.center.code-8
+        .wrapper
+            pre
+                code
+                    | -1/0; // -Infinity
+                    | Infinity/Infinity; // NaN
+                    | -1/Infinity; // -0
+                    | Math.round(-0.1); // -0
+
+    article.center.code-8
+        .wrapper
+            pre
+                code
+                    | NaN === NaN; // false
+                    | +0 === -0; // true
+
+    article.center.code-3
+        .wrapper
+            pre
+                code
+                    | let container;
+                    | 
+                    | container = 123.12;
+                    | typeof container; // number
+                    | 
+                    | container = Number(123.12);
+                    | typeof container; // number
+                    | 
+                    | container = new Number(container);
+                    | typeof container; // object
+                    | 
+                    | container = container.valueOf();
+                    | typeof container; // number
+
+    article.center.code-8
+        .wrapper
+            pre
+                code
+                    | 23.51 // decimal
+                    | 2351e-2 // scientific, 23.51
+                    | 0x10 // hexadecimal, 16
+                    | 0b10 // binary, 2
+                    | 0o10 // octal, 8
+
+    article.center.code-8
+        .wrapper
+            pre
+                code
+                    | let x = 10;
+                    | x.toString(16); // a
+                    | x.toString(8); // 12
+                    | x.toString(6); // 14
+                    | x.toString(2); // 1010
+                    | x.toExponential(1); // 1.0e+1
+
+    article.center.code-8
+        .wrapper
+            pre
+                code
+                    | 0.2 + 0.1 !== 0.3 
+                    | // 0.30000000000000004
+                    | 0.2.toFixed(20) 
+                    | // 0.20000000000000001110
+                    | 0.1.toString(2) 
+                    | // 0.000110011001100[1100]
+
+    article.center.code-8
+        .wrapper
+            pre
+                code
+                    | (
+                    |   Math.abs(
+                    |         (0.2 + 0.1) - 0.3 
+                    |   ) < Number.EPSILON
+                    | ); // true
+
+    article.center.code-8
+        .wrapper
+            pre
+                //- Number.isNaN just compare with NaN
+                //- isNaN cast non-numeric values
+                code.javascript
+                    | Number.isNaN('???') //false
+                    | isNaN('???') //true 
+
+    article.center.code-1
+        .wrapper
+            pre
+                code.javascript
+                    | 12.34.toPrecision();  // 12.34
+                    | 12.34.toString();     // 12.34
+                    | 12.34.toPrecision(5); // 12.340
+                    | 12.34.toPrecision(4); // 12.34
+                    | 12.34.toPrecision(3); // 12.3
+                    | 12.34.toPrecision(2); // 12
+                    | 12.34.toPrecision(1); // 1e+1
+
+    article.center.code-1
+        .wrapper
+            pre
+                code.javascript
+                    | 0.002345.toPrecision(5); // 0.0023450
+                    | 0.002345.toPrecision(4); // 0.002345
+                    | 0.002345.toPrecision(3); // 0.00234
+                    | 0.002345.toPrecision(2); // 0.0023
+                    | 0.002345.toPrecision(1); // 0.002
+
+    article.center.code-1
+        .wrapper
+            pre
+                code.javascript
+                    | 0.002385.toFixed(5); // 0.00238
+                    | 0.002386.toFixed(5); // 0.00239
+                    | 0.002385.toFixed(4); // 0.0024
+                    | 0.002385.toFixed(3); // 0.002
+                    | 0.002385.toFixed(2); // 0.00
+                    | 0.002385.toFixed(1); // 0.0
+                    | 0.002385.toFixed(0); // 0
+
+    article.center.code-8
+        .wrapper
+            pre
+                //- number consider dot as decimal
+                code.javascript
+                    | 10..toFixed(5); // 10.00000
+
+    article.center.code-1
+        .wrapper
+            pre
+                code.javascript
+                    | // .toLocaleString([locales [, options]])
+                    | 10000000..toLocaleString(); // 10,000,000
+                    | 10000000..toLocaleString('RU'); // 10 000 000
+                    | 10000000..toLocaleString('DE'); // 10.000.000
+
+    article.center.code-1
+        .wrapper
+            pre
+                code.javascript
+                    | // .toLocaleString([locales [, options]])
+                    | 10000000..toLocaleString(); 
+                    | // 10,000,000
+                    | 10000000..toLocaleString('RU'); 
+                    | // 10 000 000
+                    | 10000000..toLocaleString('DE'); 
+                    | // 10.000.000
+
+    article.center.code-1
+        .wrapper
+            pre
+                code.javascript
+                    | 10000000..toLocaleString('en-US', {
+                    |   style: "currency",
+                    |   currency: "USD"   
+                    | }); // $10,000,000.00
+
+    article.center.code-1
+        .wrapper
+            pre
+                code.javascript
+                    | 10000000..toLocaleString('RU', {
+                    |   style: "currency",
+                    |   currency: "RUB"   
+                    | }); // 10 000 000,00 ₽
+
+    article.center.code-1
+        .wrapper
+            pre
+                code.javascript
+                    | 10000000..toLocaleString('DE', {
+                    |   style: "currency",
+                    |   currency: "EUR"   
+                    | }); // 10.000.000,00 €
+
+    article.center.title-slide-2
+        .wrapper
+            h1.title symbol
+
+    article.center.code-1
+        .wrapper
+            pre
+                code.javascript
+                    | let key_name;
+                    | 
+                    | // Unique symbol
+                    | key_name = Symbol(); 
+                    | key_name = Symbol("Wide description"); 
+                    | 
+                    | // Character to be entered in the register
+                    | key_name = Symbol.for("Wide description"); 
+                    | this[key_name] = "Valera";
+
+    article.center.code-1
+        .wrapper
+            pre
+                code.javascript
+                    | let key_1, key_2;
+                    | 
+                    | key_1 = Symbol("Wide description");
+                    | key_2 = Symbol("Wide description"); 
+                    | (key_1 === key_2) // false
+                    | 
+                    | key_1 = Symbol.for("Wide description");
+                    | key_2 = Symbol.for("Wide description"); 
+                    | (key_1 === key_2) // true
+
+    article.center.code-2
+        .wrapper
+            pre
+                code.javascript
+                    | key_name = new Symbol(); // TypeError
+                    | key_name = Symbol();
+                    | typeof key_name; // "symbol" 
+                    | key_name = Object(key_name);
+                    | typeof key_name; // "object" 
+                    | key_name = key_name[Symbol.toPrimitive]('symbol');
+                    | typeof key_name; // "symbol" 
+
+    article.center.code-8
+        .wrapper
+            pre
+                code.javascript="this[key_name] = \"Valera\";"
+
+    article.center.code-1
+        .wrapper
+            pre
+                code.javascript
+                    | let obj = {"a": 123}
+                    |   , key = Symbol.for('Wide description');
+                    | obj[key] = "Valera";
+                    | Object.getOwnPropertySymbols(obj);
+                    | // [Symbol(Wide description)]
+
+    //- article.center.code-1
+    //-     .wrapper
+    //-         pre
+    //-             code.javascript
+    //-                 | let name = Symbol("key");
+    //-                 | name + " to the door"; // Type Error 
+    //-                 | name.toString(); // "Symbol(key)"
+    //-                 | String(name); // "Symbol(key)"
+
+
+    article.center.code-1
+        .wrapper
+            pre
+                code
+                    | for (let x of obj) {} // as usual
+                    | for (let x in obj) {} // ignoring symbols
+
+    //- article.center.symbols-wrapper
+    //-     .wrapper
+    //-         h1.title Symbol.&rarr;
+    //-         ol.half
+    //-             li hasInstance
+    //-             li isConcatSpreadable
+    //-             li iterator
+    //-             li match
+    //-             li replace
+    //-             li search
+    //-         ol.half(start="7")
+    //-             li species
+    //-             li split
+    //-             li toPrimitive
+    //-             li toStringTag
+    //-             li unscopables
+            
+
+
+    //- article.screen.screen--stage-1
+
+    article.center.title-slide-2
+        .wrapper
+            h1.title typeof
+
+    article.center.typeof-table
+        .wrapper
+            ul.quarter
+                li Undefined
+                li Null
+                    span  баг
+                li Boolean
+                li String
+            ul.quarter
+                li "undefined"
+                li "object"
+                li "boolean"
+                li "string"
+            ul.quarter
+                li Number 
+                li Object
+                li Object
+                    span  callable
+                li Symbol
+                li BigInt 
+            ul.quarter
+                li "number"
+                li "object"
+                li "function"
+                li "symbol"
+                li "bigint"
+    
+
+    article.center.code-8
+        .wrapper
+            pre
+                code.javascript
+                    | Object.prototype
+                    |   .toString
+                    |       .call((new Date())) 
+                    |       // [Object Date]
+                    |           .slice(8, -1)
+                    |           // Date
+
+    article.center.title-slide-2
+        .wrapper
+            h1.title Coercion
+
+    article.center.cast
+        .wrapper
+            h1.title &rarr; ToPrimitive(input, hint)
+            table
+                tr
+                    td Undefined
+                    td  
+                        b input
+                tr
+                    td Null
+                    td  
+                        b input
+                tr
+                    td Number
+                    td  
+                        b input 
+                tr
+                    td Boolean
+                    td  
+                        b input 
+                tr
+                    td String
+                    td  
+                        b input
+                tr
+                    td Symbol
+                    td  
+                        b input
+                tr
+                    td BigInt
+                    td  
+                        b input
+                tr
+                    td Object
+                    td  
+                        b tricky bit
+
+    article.center.cast
+        .wrapper
+            h1.title &rarr; ToPrimitive(input, hint)
+            ol
+                li hint can be [default, string, number]
+                li if input is exotic object check if it has @@toPrimitive
+                li if it has and value is a callable object — call and return result or TypeError
+
+    article.center.code-0
+        .wrapper
+            pre
+                code.javascript
+                    | const date = new Date()
+                    | date[Symbol.toPrimitive]('number')
+                    | // 1588847933493
+                    | date[Symbol.toPrimitive]('string')
+                    | // "Thu May 07 2020 12:38:53 GMT+0200 
+                    | //  (Central European Summer Time)"
+
+
+    article.center.cast
+        .wrapper
+            h1.title &rarr; ToPrimitive(input, hint)
+            ol
+                li(start="4") if it doesn't or input — ordinary object, continue
+                li if hint == "default", set it to "number"
+                li call OrdinaryToPrimitive(input, hint)
+
+    article.center.cast
+        .wrapper
+            h1.title &rarr; ToPrimitive(input, hint)
+            ol
+                li if hint — string call toString, valueOf
+                li if hint — number call valueOf, toString
+                li if method is present and callable — call it and return result or TypeError
+
+    article.center.cast
+        .wrapper
+            h1.title &rarr; toBoolean
+            table
+                tr
+                    td Undefined
+                    td  
+                        b false
+                tr
+                    td Null
+                    td  
+                        b false
+                tr
+                    td Number
+                    td  
+                        b false 
+                        | for [+0; -0; NaN] or  
+                        b true 
+                tr
+                    td String
+                    td  
+                        b false 
+                        | for [""] or  
+                        b true
+                tr
+                    td Symbol
+                    td  
+                        b true
+                tr
+                    td BigInt
+                    td 
+                        b false
+                        |  for [0n] or
+                        b  true
+                tr
+                    td Object
+                    td  
+                        b true 
+                        | if not document.all
+
+
+    article.center.code-1
+        .wrapper
+            pre
+                code.javascript
+                    | (value === 'true');  // true
+                    | typeof (value === 'true');  // boolean
+                    | !!+"1"; // true
+                    | typeof !!+"1"; // boolean
+
+    article.center.cast
+        .wrapper
+            h1.title &rarr; toNumber
+            table
+                tr
+                    td Undefined
+                    td 
+                        b NaN
+                tr
+                    td Null
+                    td 
+                        b +0
+                tr
+                    td Boolean
+                    td  
+                        b 1 
+                        | если true, 
+                        b 0 
+                        | если false
+                tr
+                    td String
+                    td  
+                        ol 
+                            li Trying ot use StringNumericLiteral UTF-16
+                            li Otherwise return NaN
+                tr
+                    td Symbol
+                    td  
+                        b TypeError
+                tr
+                    td BigInt
+                    td  
+                        b TypeError
+                tr
+                    td Object
+                    td 
+                        ol 
+                            li ToPrimitive(input, number)
+                            li ToNumber(input)
+
+    article.center.code-8
+        .wrapper
+            pre
+                code.javascript
+                    | parseInt(value, 10);
+                    | parseFloat(value);
+                    | +value;
+                    | Number(value);
+
+    article.center.cast
+        .wrapper
+            h1.title &rarr; toString
+            table
+                tr
+                    td Undefined
+                    td 
+                        b "undefined"
+                tr
+                    td Null
+                    td 
+                        b "null"
+                tr
+                    td Boolean
+                    td  
+                        b "true" 
+                        |  if true, 
+                        b "false"
+                        |  if false
+                tr
+                    td Symbol
+                    td  
+                        b TypeError
+                tr
+                    td Object
+                    td 
+                        ol 
+                            li ToPrimitive(input, string)
+                            li ToString(input)
+
+    article.center.cast
+        .wrapper
+            h1.title &rarr; toString
+            table
+                tr
+                    td Number
+                    td 
+                        b "NaN"
+                        |  if NaN
+                        br
+                        b "0"
+                        |  if +0 или -0
+                        br
+                        b "Infinity"
+                        |  if +∞
+                        br
+                        b "-" + toString(arg)
+                        |  if value less then 0
+                        br
+                        b number N
+                        |  convert to UTF-16
+
+    article.center.code-8
+        .wrapper
+            pre
+                code.javascript
+                    | value.toString(); 
+                    | // don't work with null
+                    | // don't work with undefined
+                    | "" + value;
+                    | String(value);
+
+    article.center.cast
+        .wrapper
+            h1.title &rarr; toObject
+            table
+                tr
+                    td Undefined
+                    td 
+                        b TypeError
+                tr
+                    td Null
+                    td 
+                        b TypeError
+                tr
+                    td Boolean
+                    td New object 
+                        b Boolean
+                tr
+                    td Number
+                    td New object 
+                        b Number
+                tr
+                    td String
+                    td New object 
+                        b String
+                tr
+                    td BigInt
+                    td New object 
+                        b BigInt
+                tr
+                    td Symbol
+                    td New object 
+                        b Symbol
+
+    article.center.code-8
+        .wrapper
+            pre
+                code.javascript
+                    | Object("3"); 
+                    | // String {"3"}
+                    | Object(3); 
+                    | // Number {10}
+
+    article.center.cast
+        .wrapper
+            h1.title &rarr; toBigInt
+            p.first Call ToPrimitive(argument, hint Number), or
+            table
+                tr
+                    td Undefined
+                    td 
+                        b TypeError
+                tr
+                    td Null
+                    td 
+                        b TypeError
+                tr
+                    td Boolean
+                    td   
+                        b 1n 
+                        |  if true, 
+                        b 0n
+                        |  if false
+                tr
+                    td Number
+                    td 
+                        b TypeError
+                tr
+                    td Symbol
+                    td 
+                        b TypeError
+                tr
+                    td String
+                    td  
+                        ol 
+                            li Trying ot use StringNumericLiteral UTF-16, but no 
+                                b Infinity
+                                |, decimal point or exponents
+                            li Otherwise its 
+                                b NaN
+                                |, throw 
+                                b TypeError
+
+    article.center.code-8
+        .wrapper
+            pre
+                code.javascript
+                    | BigInt("23");
+                    | // 23n
+                    | BigInt(3);
+                    | // 3n
+                    | // no TypeError because 
+                    | // of ToPrimitive (.valueOf())
+
+    article.center.qrcode.wtf
+        .wrapper
+            .half
+                h2 What the f*ck JavaScript?
+            .half
+                img(src="images/wtf.svg", alt="QRCODE with link to the presentation")
+            p 
+                a(href="https://github.com/denysdovhan/wtfjs", data-click=true) https://github.com/denysdovhan/wtfjs
+
+    article.center.title-slide-4
+        .wrapper
+            h1.title Type safety
+
+    article.illustration.illustration--challenge
+        
+    article.illustration.illustration--flow
+    article.center.code-0
+        .wrapper
+            pre
+                code.javascript.
+                    // @flow
+                    function concat(a: string, b: string) {
+                        return a + b;
+                    }
+    article.center.qrcode.var-6
+            .wrapper
+                    .half
+                            h2 Flow
+                    .half
+                            img(src="images/flow-code.svg", alt="QRCODE with link to flow")
+                    p
+                            a(href="https://flow.org/", data-click=true) https://flow.org/
+
+    article.illustration.illustration--typescript
+
+    article.center.qrcode.var-6
+            .wrapper
+                    .half
+                            h2 Typescript
+                    .half
+                            img(src="images/typescript.svg", alt="QRCODE with link to flow")
+                    p
+                            a(href="https://www.typescriptlang.org/", data-click=true) https://www.typescriptlang.org/
+    article.center.code-0
+        .wrapper
+            pre
+                code.javascript.
+                    function concat(a: string, b: string) {
+                        return a + b;
+                    }
+
+    article.think.think--real.cloud.center
+        h1 
+            p.wrapper Let's make JavaScript a real language!
+
+    article.think.think--java.cloud.center
+        h1 
+            p.wrapper JAVA
+
+    article.center.code-8
+        .wrapper
+            pre
+                code.javascript.
+                    npx -p typescript tsc 
+                        --allowJs 
+                        --checkJs 
+                        --noEmit 
+                        src/**/**.js
+    
+    article.screen.screen--res
+
+    article.center.qrcode.var-6
+        .wrapper
+                .half
+                        h2 JSDoc
+                .half
+                        img(src="images/jsdoc.svg", alt="QRCODE with link to jsdoc")
+                p
+                        a(href="http://usejsdoc.org/", data-click=true) http://usejsdoc.org/
+
+    article.center.code-2
+        .wrapper
+            pre
+                code.javascript.
+                    /**
+                     * Cities - Class to work with unique cities
+                     * @class
+                     * @namespace
+                     */
+                    class Cities {
+                        /**
+                         * @type {array}
+                         * @static
+                         */
+                        static collector = [];
+                    }
+
+    article.center.code-2
+        .wrapper
+            pre
+                code.javascript.
+                    /**
+                     * getCity - Get city by index
+                     * @throws {Error} if index not found
+                     * @param {number} index city index
+                     * @return {string} city name
+                     */
+                    getCity(index) {
+                        // …
+                    }
+
+    article.think.think--types.cloud.center
+        h1 
+            p.wrapper And 
+                br
+                | what
+                br 
+                | does
+                | it do?
+        .subtitle
+            p — Nothing.
+
+    article.center.code-8
+        .wrapper
+            pre
+                code.bash.
+                    npm i -D jsdoc
+
+    article.center.code-0
+        .wrapper
+            pre
+                code.bash.
+                    // package.json
+                    "scripts": {
+                        "doc": "jsdoc src/*.js -d docs"
+                    }
+    article.center.code-8
+        .wrapper
+            pre
+                code.bash.
+                    npm run doc
+    article.screen.screen--jsdoc
+    article.center.code-8
+        .wrapper
+            pre
+                code.bash.
+                    npm i -D jsdoc-babel
+    article.center.code-0
+        .wrapper
+            pre
+                code.json.
+                    // conf.json
+                    {
+                        "plugins": 
+                            ["node_modules/jsdoc-babel"]
+                    }
+    article.screen.screen--documentation
+    article.center.qrcode.var-5
+        .wrapper
+                .half
+                        h2 Documentation.js
+                .half
+                        img(src="images/documentation.svg", alt="QRCODE with link to jsdoc")
+                p
+                        a(href="http://documentation.js.org/", data-click=true) http://documentation.js.org/
+
+    article.center.code-8
+        .wrapper
+            pre
+                code.bash.
+                    npm i -D documentation
+    article.center.code-0
+        .wrapper
+            pre
+                code.json.
+                    // package.json
+                    "scripts": {
+                        "doc": "documentation 
+                            build src/*.js 
+                            -f html -o docs"
+                    }
+    article.center.code-8
+        .wrapper
+            pre
+                code.bash.
+                    npm run doc
+    article.screen.screen--documentation-build
+    article.center.code-0
+        .wrapper
+            pre
+                code.md.
+                    // README.md
+                    # Cities
+                    Cool Library that …
+
+                    # API
+    article.center.code-0
+        .wrapper
+            pre
+                code.json.
+                    // package.json
+                    "scripts": {
+                        "readme": "documentation 
+                            readme src/*.js 
+                            --section=API"
+                    }
+    article.center.code-7
+        .wrapper
+            pre
+                code.bash.
+                    npm run readme
+    article.screen.screen--documentation-readme
+    article.screen.screen--documentation-issues
+
+    article.think.think--real.cloud.center
+        h1 
+            p.wrapper Where is my type linting, dude?
+        .subtitle    
+            p — TS can read JSDoc.
+    
+    article.illustration.illustration--vsc
+    
+    article.screen.screen--vsc-settings
+    
+    article.screen.screen--vsc-property
+    
+    article.screen.screen--vsc-check
+        
+    article.center.qrcode.var-5
+        .wrapper
+            .half
+                    h2 Type Safe JavaScript with JSDoc
+            .half
+                    img(src="images/vs-jsdoc.svg", alt="QRCODE with link to article about configuring jsdoc type checks")
+            p
+                    a(href="https://medium.com/@trukrs/type-safe-javascript-with-jsdoc-7a2a63209b76", data-click=true) https://goo.gl/sBHmmH
+
+    article.center.code-7
+        .wrapper
+            pre
+                code.bash.
+                    npm i -D typescript
+
+    article.center.code-3
+        .wrapper
+            pre
+                code.json.
+                    // tsconfig.json
+                    {
+                        "compilerOptions": {
+                            "target": "ESNext",
+                            "noEmit": true,
+                            "allowJs": true,
+                            "checkJs": true,
+                        },
+                        "include": [
+                            "src/**/*.js"
+                        ]
+                    }
+
+    article.center.code-7
+        .wrapper
+            pre
+                code.json.
+                    // package.json
+                    "scripts": {
+                        "lint": "tsc"
+                    }
+    article.center.code-0
+        .wrapper
+            pre
+                code.javascript.
+                    /**
+                     * Add new city
+                     * @param {string} word city name
+                     */
+                    add(word) {
+                        //…
+                    }
+    article.center.code-6
+        .wrapper
+            pre
+                code.javascript.
+                    citys.add(222);
+    article.center.code-6
+        .wrapper
+            pre
+                code.bash.
+                    npm run lint
+    article.screen.screen--tsc-lint
+
+    article.center.code-2
+        .wrapper
+            pre
+                code.js.
+                    // package.json
+                    { // …
+                        "scripts": { // …
+                            "precommit": "lint-staged"
+                        },
+                        "lint-staged": { // …
+                            "*.{js,jsx}": "tsc --target ESNext 
+                                --noEmit --allowJs --checkJs"
+                        }
+                    }
+    
+    article.screen.screen--lint-staged-types
+
+    article.center.qrcode.var-5
+        .wrapper
+            .half
+                    h2 Repository with example
+            .half
+                    img(src="images/linttyperepo.svg", alt="QRCODE with link to example repo")
+            p
+                    a(href="https://github.com/SilentImp/lintTypes", data-click=true) https://github.com/SilentImp/lintTypes
+
+        
+
+    article.contacts.center.qrcode
+        .wrapper
+            .about-speaker.half
+                p.name Anton Nemtsev
+                p.twitter @silentimp
+                p.link http://silentimp.info/
+                p.email anton.nemtsev@werkspot.nl
+                p.skype skype: ravencry
+            .half
+                img(src="images/git.svg", alt="QRCODE with link to the presentation")
+            p 
+                a(href="https://github.com/SilentImp/ES6Types", data-click=true) https://github.com/SilentImp/ES6Types
